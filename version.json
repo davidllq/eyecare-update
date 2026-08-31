@@ -1,7 +1,7 @@
 {
-  "versionName": "1.0.3",
-  "versionCode": 4,
-  "content": "【新增】\n• 在线版本升级功能\n• 护眼小贴士随机展示\n• 智能问候语\n\n【优化】\n• 界面视觉效果全面升级\n• 支付流程优化\n• 后台提醒稳定性提升\n\n【修复】\n• 修复已知问题",
-  "downloadUrl": "https://ghproxy.com/https://github.com/davidllq/eyecare-update/releases/download/v1.0.3/EyeCare.apk",
+  "versionName": "1.0.4",
+  "versionCode": 5,
+  "content": "【新增】\n• 在线版本升级功能\n• 护眼小贴士随机展示\n• 智能问候语\n\n【优化】\n• 界面视觉效果全面升级\n• 支付流程优化\n• 后台提醒稳定性提升\n• 版本更新服务器优化\n\n【修复】\n• 修复已知问题",
+  "downloadUrl": "https://gh-proxy.com/https://github.com/davidllq/eyecare-update/releases/download/v1.0.3/EyeCare.apk",
   "forceUpdate": false
 }
