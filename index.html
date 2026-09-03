@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>护眼闹钟 - 专业的护眼提醒工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .app-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .app-name {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .app-slogan {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .features {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .features h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .feature-text {
+            flex: 1;
+        }
+        
+        .feature-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        
+        .feature-desc {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .download {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .download h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            opacity: 0.8;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 600px) {
+            .app-name {
+                font-size: 28px;
+            }
+            
+            .features, .download {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="app-icon">👁️</div>
+            <h1 class="app-name">护眼闹钟</h1>
+            <p class="app-slogan">专业的护眼提醒工具，保护您的视力健康</p>
+        </div>
+        
+        <div class="features">
+            <h2>✨ 核心功能</h2>
+            <ul class="feature-list">
+                <li>
+                    <div class="feature-icon">⏰</div>
+                    <div class="feature-text">
+                        <div class="feature-title">智能护眼提醒</div>
+                        <div class="feature-desc">根据使用时长智能提醒休息，科学用眼</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-text">
+                        <div class="feature-title">多种场景模式</div>
+                        <div class="feature-desc">默认、阅读、游戏、办公、网课等多种场景</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-text">
+                        <div class="feature-title">数据统计分析</div>
+                        <div class="feature-desc">记录每日用眼时长，帮助您了解用眼习惯</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="feature-icon">🔔</div>
+                    <div class="feature-text">
+                        <div class="feature-title">自定义提醒间隔</div>
+                        <div class="feature-desc">支持20/30/45分钟等多种间隔，VIP可自定义</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="feature-icon">🎵</div>
+                    <div class="feature-text">
+                        <div class="feature-title">多种提醒音效</div>
+                        <div class="feature-desc">提供多种舒缓的提醒音效，保护您的听力</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-text">
+                        <div class="feature-title">后台稳定提醒</div>
+                        <div class="feature-desc">APP在后台或手机黑屏时也能可靠触发提醒</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="download">
+            <h2>📥 立即下载</h2>
+            <p style="margin-bottom: 20px; color: #666;">支持Android系统，免费下载使用</p>
+            <a href="#" class="download-btn">下载护眼闹钟</a>
+        </div>
+        
+        <div class="footer">
+            <p>© 2026 护眼闹钟 - 保护您的视力健康</p>
+            <p style="margin-top: 10px;">北京悦雅信创科技有限公司</p>
+        </div>
+    </div>
+</body>
+</html>
