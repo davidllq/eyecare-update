@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>护眼守护 - 应用运行流程图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #1e40af;
+            margin-bottom: 12px;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: #64748b;
+        }
+
+        .flow-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title .icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        /* 流程图样式 */
+        .flow-chart {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border: 2px solid #3b82f6;
+            border-radius: 16px;
+            padding: 20px 24px;
+            text-align: center;
+            min-width: 140px;
+            position: relative;
+        }
+
+        .flow-step .step-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .flow-step .step-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1e40af;
+        }
+
+        .flow-arrow {
+            font-size: 28px;
+            color: #3b82f6;
+            font-weight: bold;
+        }
+
+        /* 手机截图展示 */
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .screenshot-item {
+            text-align: center;
+        }
+
+        .screenshot-frame {
+            background: #1e293b;
+            border-radius: 30px;
+            padding: 12px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .screenshot-frame::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 20px;
+            background: #1e293b;
+            border-radius: 0 0 12px 12px;
+            z-index: 1;
+        }
+
+        .screenshot-screen {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            aspect-ratio: 9/16;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 手机状态栏 */
+        .phone-status-bar {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .phone-status-bar .time {
+            font-size: 12px;
+        }
+
+        .phone-status-bar .icons {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        /* 主界面截图 */
+        .screen-main {
+            background: linear-gradient(180deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+
+        .screen-main .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: white;
+        }
+
+        .screen-main .timer-circle {
+            width: 120px;
+            height: 120px;
+            border: 6px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .screen-main .timer-text {
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .screen-main .label {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .screen-main .value {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        /* 提醒界面截图 */
+        .screen-reminder {
+            background: linear-gradient(180deg, #dc2626 0%, #f97316 100%);
+        }
+
+        .screen-reminder .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .screen-reminder .reminder-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .screen-reminder .reminder-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .screen-reminder .reminder-desc {
+            font-size: 13px;
+            opacity: 0.95;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .screen-reminder .btn {
+            background: white;
+            color: #dc2626;
+            padding: 12px 32px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        /* 设置界面截图 */
+        .screen-settings {
+            background: #f8fafc;
+        }
+
+        .screen-settings .app-header {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            padding: 16px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .screen-settings .content {
+            flex: 1;
+            padding: 16px;
+        }
+
+        .screen-settings .setting-item {
+            background: white;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .screen-settings .setting-label {
+            font-size: 13px;
+            color: #334155;
+            font-weight: 600;
+        }
+
+        .screen-settings .setting-value {
+            font-size: 12px;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        /* 场景模式界面截图 */
+        .screen-scenarios {
+            background: #f8fafc;
+        }
+
+        .screen-scenarios .app-header {
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+            padding: 16px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .screen-scenarios .content {
+            flex: 1;
+            padding: 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .screen-scenarios .scenario-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .screen-scenarios .scenario-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .screen-scenarios .scenario-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        /* 我的页面截图 */
+        .screen-profile {
+            background: linear-gradient(180deg, #1e3a8a 0%, #f8fafc 40%);
+        }
+
+        .screen-profile .user-info {
+            padding: 24px 16px;
+            text-align: center;
+            color: white;
+        }
+
+        .screen-profile .avatar {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .screen-profile .username {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .screen-profile .vip-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1e3a8a;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .screen-profile .menu-list {
+            padding: 16px;
+        }
+
+        .screen-profile .menu-item {
+            background: white;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .screen-profile .menu-icon {
+            font-size: 20px;
+        }
+
+        .screen-profile .menu-text {
+            font-size: 13px;
+            color: #334155;
+            font-weight: 600;
+        }
+
+        .screenshot-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .screenshot-desc {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        /* 功能流程说明 */
+        .flow-description {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 20px;
+        }
+
+        .flow-description h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 12px;
+        }
+
+        .flow-description ul {
+            list-style: none;
+        }
+
+        .flow-description li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: #475569;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .flow-description li::before {
+            content: '✓';
+            color: #10b981;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .footer p {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👁️ 护眼守护 - 应用运行流程图</h1>
+            <p>专业护眼提醒工具 · 智能计时 · 定时提醒 · 科学用眼</p>
+        </div>
+
+        <!-- 应用启动与登录流程 -->
+        <div class="flow-section">
+            <h2 class="section-title">
+                <div class="icon">🚀</div>
+                应用启动与登录流程
+            </h2>
+            <div class="flow-chart">
+                <div class="flow-step">
+                    <div class="step-icon">📱</div>
+                    <div class="step-title">启动应用</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">👋</div>
+                    <div class="step-title">欢迎页面</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">🔐</div>
+                    <div class="step-title">登录/注册</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">⚙️</div>
+                    <div class="step-title">权限申请</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">🏠</div>
+                    <div class="step-title">进入主界面</div>
+                </div>
+            </div>
+            <div class="flow-description">
+                <h4>流程说明：</h4>
+                <ul>
+                    <li>用户点击应用图标启动护眼守护，显示品牌欢迎页面</li>
+                    <li>首次使用需注册账号，已注册用户可直接登录（支持账号密码登录、忘记密码找回）</li>
+                    <li>登录成功后申请必要权限（悬浮窗、通知、后台运行等）</li>
+                    <li>权限授予后自动进入主界面，开始智能护眼计时</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 核心功能运行截图 -->
+        <div class="flow-section">
+            <h2 class="section-title">
+                <div class="icon">📱</div>
+                核心功能运行界面
+            </h2>
+            <div class="screenshots-grid">
+                <!-- 主界面 -->
+                <div class="screenshot-item">
+                    <div class="screenshot-frame">
+                        <div class="screenshot-screen screen-main">
+                            <div class="phone-status-bar">
+                                <span class="time">14:30</span>
+                                <span class="icons">📶 🔋 100%</span>
+                            </div>
+                            <div class="content">
+                                <div class="label">今日用眼</div>
+                                <div class="timer-circle">
+                                    <div class="timer-text">45:00</div>
+                                </div>
+                                <div class="label">下次提醒</div>
+                                <div class="value">15分钟后</div>
+                                <div class="label">今日达标率</div>
+                                <div class="value">85%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screenshot-title">智能计时主界面</div>
+                    <div class="screenshot-desc">实时显示用眼时长、下次提醒、达标率</div>
+                </div>
+
+                <!-- 提醒界面 -->
+                <div class="screenshot-item">
+                    <div class="screenshot-frame">
+                        <div class="screenshot-screen screen-reminder">
+                            <div class="phone-status-bar">
+                                <span class="time">14:45</span>
+                                <span class="icons">📶 🔋 98%</span>
+                            </div>
+                            <div class="content">
+                                <div class="reminder-icon">👁️</div>
+                                <div class="reminder-title">眼睛该休息了</div>
+                                <div class="reminder-desc">您已连续用眼45分钟<br>请远眺20英尺外20秒<br>让眼睛得到充分放松</div>
+                                <div class="btn">我知道了</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screenshot-title">护眼提醒悬浮窗</div>
+                    <div class="screenshot-desc">全屏提醒，引导用户进行眼部放松</div>
+                </div>
+
+                <!-- 设置界面 -->
+                <div class="screenshot-item">
+                    <div class="screenshot-frame">
+                        <div class="screenshot-screen screen-settings">
+                            <div class="phone-status-bar">
+                                <span class="time">14:32</span>
+                                <span class="icons">📶 🔋 99%</span>
+                            </div>
+                            <div class="app-header">⚙️ 个性设置</div>
+                            <div class="content">
+                                <div class="setting-item">
+                                    <span class="setting-label">提醒间隔</span>
+                                    <span class="setting-value">45分钟</span>
+                                </div>
+                                <div class="setting-item">
+                                    <span class="setting-label">每日目标</span>
+                                    <span class="setting-value">8小时</span>
+                                </div>
+                                <div class="setting-item">
+                                    <span class="setting-label">提醒音效</span>
+                                    <span class="setting-value">轻柔铃声</span>
+                                </div>
+                                <div class="setting-item">
+                                    <span class="setting-label">休息时长</span>
+                                    <span class="setting-value">20秒</span>
+                                </div>
+                                <div class="setting-item">
+                                    <span class="setting-label">后台运行</span>
+                                    <span class="setting-value">已开启</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screenshot-title">个性定制设置</div>
+                    <div class="screenshot-desc">自由设置提醒间隔、目标、音效等</div>
+                </div>
+
+                <!-- 场景模式 -->
+                <div class="screenshot-item">
+                    <div class="screenshot-frame">
+                        <div class="screenshot-screen screen-scenarios">
+                            <div class="phone-status-bar">
+                                <span class="time">14:35</span>
+                                <span class="icons">📶 🔋 97%</span>
+                            </div>
+                            <div class="app-header">🎯 场景模式</div>
+                            <div class="content">
+                                <div class="scenario-card">
+                                    <div class="scenario-icon">📚</div>
+                                    <div class="scenario-name">阅读模式</div>
+                                </div>
+                                <div class="scenario-card">
+                                    <div class="scenario-icon">🎮</div>
+                                    <div class="scenario-name">游戏模式</div>
+                                </div>
+                                <div class="scenario-card">
+                                    <div class="scenario-icon">💼</div>
+                                    <div class="scenario-name">办公模式</div>
+                                </div>
+                                <div class="scenario-card">
+                                    <div class="scenario-icon">🎓</div>
+                                    <div class="scenario-name">网课模式</div>
+                                </div>
+                                <div class="scenario-card">
+                                    <div class="scenario-icon">🏠</div>
+                                    <div class="scenario-name">默认模式</div>
+                                </div>
+                                <div class="scenario-card">
+                                    <div class="scenario-icon">➕</div>
+                                    <div class="scenario-name">自定义</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screenshot-title">多场景模式</div>
+                    <div class="screenshot-desc">5种预设场景，一键切换最优方案</div>
+                </div>
+
+                <!-- 我的页面 -->
+                <div class="screenshot-item">
+                    <div class="screenshot-frame">
+                        <div class="screenshot-screen screen-profile">
+                            <div class="phone-status-bar">
+                                <span class="time">14:38</span>
+                                <span class="icons">📶 🔋 96%</span>
+                            </div>
+                            <div class="user-info">
+                                <div class="avatar">👤</div>
+                                <div class="username">护眼用户</div>
+                                <div class="vip-badge">👑 VIP会员</div>
+                            </div>
+                            <div class="menu-list">
+                                <div class="menu-item">
+                                    <span class="menu-icon">📊</span>
+                                    <span class="menu-text">用眼统计</span>
+                                </div>
+                                <div class="menu-item">
+                                    <span class="menu-icon">👑</span>
+                                    <span class="menu-text">VIP会员</span>
+                                </div>
+                                <div class="menu-item">
+                                    <span class="menu-icon">⚙️</span>
+                                    <span class="menu-text">设置</span>
+                                </div>
+                                <div class="menu-item">
+                                    <span class="menu-icon">💬</span>
+                                    <span class="menu-text">意见反馈</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="screenshot-title">我的个人中心</div>
+                    <div class="screenshot-desc">用户信息、VIP状态、功能菜单</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 智能计时工作流程 -->
+        <div class="flow-section">
+            <h2 class="section-title">
+                <div class="icon">⏱️</div>
+                智能计时工作流程
+            </h2>
+            <div class="flow-chart">
+                <div class="flow-step">
+                    <div class="step-icon">🔆</div>
+                    <div class="step-title">屏幕亮起</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">▶️</div>
+                    <div class="step-title">开始计时</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">⏳</div>
+                    <div class="step-title">持续累计</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">🌙</div>
+                    <div class="step-title">屏幕熄灭</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">⏸️</div>
+                    <div class="step-title">暂停计时</div>
+                </div>
+            </div>
+            <div class="flow-description">
+                <h4>智能计时原理：</h4>
+                <ul>
+                    <li>自动检测手机屏幕亮屏状态，屏幕亮起时自动开始计时</li>
+                    <li>亮屏期间持续累计用眼时长，精确到秒</li>
+                    <li>屏幕熄灭或锁屏时自动暂停计时，不计算休息时间</li>
+                    <li>再次亮屏时继续计时，实现真正的智能用眼统计</li>
+                    <li>后台运行不影响其他应用使用，低功耗设计省电省心</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 提醒触发流程 -->
+        <div class="flow-section">
+            <h2 class="section-title">
+                <div class="icon">🔔</div>
+                休息提醒触发流程
+            </h2>
+            <div class="flow-chart">
+                <div class="flow-step">
+                    <div class="step-icon">⏱️</div>
+                    <div class="step-title">达到设定时长</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">🔊</div>
+                    <div class="step-title">播放提醒音效</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">📱</div>
+                    <div class="step-title">弹出全屏提醒</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">👀</div>
+                    <div class="step-title">引导眼部放松</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">✅</div>
+                    <div class="step-title">确认后继续</div>
+                </div>
+            </div>
+            <div class="flow-description">
+                <h4>提醒功能特点：</h4>
+                <ul>
+                    <li>达到用户设定的提醒间隔（默认45分钟）后自动触发提醒</li>
+                    <li>播放用户选择的提醒音效（7种专业音效可选）</li>
+                    <li>弹出全屏提醒页面，显示护眼建议和放松指导</li>
+                    <li>引导用户遵循"20-20-20"护眼法则：每20分钟看20英尺外20秒</li>
+                    <li>用户点击确认后关闭提醒，继续下一轮计时循环</li>
+                    <li>支持后台提醒，即使应用不在前台也能正常触发</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- VIP会员开通流程 -->
+        <div class="flow-section">
+            <h2 class="section-title">
+                <div class="icon">👑</div>
+                VIP会员开通流程
+            </h2>
+            <div class="flow-chart">
+                <div class="flow-step">
+                    <div class="step-icon">👤</div>
+                    <div class="step-title">进入我的页面</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">👑</div>
+                    <div class="step-title">点击VIP会员</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">📋</div>
+                    <div class="step-title">查看权益介绍</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">💳</div>
+                    <div class="step-title">选择套餐支付</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">🎉</div>
+                    <div class="step-title">开通成功享特权</div>
+                </div>
+            </div>
+            <div class="flow-description">
+                <h4>VIP会员专属特权：</h4>
+                <ul>
+                    <li>任意时间设置：免费版限8:00-22:00，VIP全天24小时可设</li>
+                    <li>全部7种专业提醒音效：免费版仅前3种，VIP解锁全部音效</li>
+                    <li>全部5种场景模式：免费版基础模式，VIP解锁全部场景</li>
+                    <li>详细用眼统计分析：更丰富的数据展示和趋势分析</li>
+                    <li>无广告纯净体验：去除所有广告，享受纯净护眼体验</li>
+                    <li>优先客服支持：VIP用户享受优先响应的专属客服服务</li>
+                    <li>新功能抢先体验：最新功能优先开放给VIP用户体验</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 北京悦雅信创科技有限公司 版权所有</p>
+            <p>护眼守护 - 专业护眼提醒工具 · 保护视力健康，科学用眼</p>
+            <p>客服邮箱：liquan_liu@126.com</p>
+        </div>
+    </div>
+</body>
+</html>

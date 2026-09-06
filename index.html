@@ -3,230 +3,1047 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>护眼闹钟 - 专业的护眼提醒工具</title>
+    <meta name="description" content="护眼守护 - 专业的护眼提醒工具，帮助您保护视力健康，科学用眼，远离视疲劳。智能计时、定时提醒、个性定制、场景模式，全方位守护您的眼睛健康。">
+    <meta name="keywords" content="护眼守护,护眼闹钟,眼睛休息,视力保护,科学用眼,视疲劳,用眼提醒,健康护眼">
+    <title>护眼守护 - 专业护眼提醒工具 | 保护视力健康，科学用眼</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
             color: #333;
+            background: #f8fafc;
         }
-        
-        .container {
-            max-width: 800px;
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            padding: 0 20px;
+        }
+
+        .navbar-container {
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
         }
-        
-        .header {
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 22px;
+            font-weight: 700;
+            color: #1e40af;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .nav-download {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-weight: 600 !important;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .nav-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Hero区域 */
+        .hero {
+            padding: 140px 20px 80px;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #e0f2fe 100%);
             text-align: center;
-            color: white;
-            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
         }
-        
-        .app-icon {
-            width: 120px;
-            height: 120px;
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: #64748b;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #2563eb;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid #3b82f6;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: #2563eb;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #64748b;
+            margin-top: 5px;
+        }
+
+        /* 通用区块 */
+        .section {
+            padding: 80px 20px;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+            padding: 6px 16px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 38px;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* 功能特性 */
+        .features {
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 36px 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 24px;
+        }
+
+        .feature-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-size: 15px;
+            color: #64748b;
+            line-height: 1.8;
+        }
+
+        /* 产品展示 */
+        .showcase {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+
+        .showcase-item {
+            background: white;
             border-radius: 24px;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            margin: 0 auto 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+
+        .showcase-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .showcase-image {
+            width: 100%;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            background: #f1f5f9;
+            aspect-ratio: 9/16;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 48px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        
-        .app-name {
-            font-size: 36px;
-            font-weight: bold;
+
+        .showcase-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        /* 使用场景 */
+        .scenarios {
+            background: white;
+        }
+
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .scenario-card {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .scenario-card:hover {
+            transform: scale(1.05);
+        }
+
+        .scenario-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .scenario-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 8px;
+        }
+
+        .scenario-desc {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* VIP会员 */
+        .vip {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3730a3 100%);
+            color: white;
+        }
+
+        .vip .section-title {
+            color: white;
+        }
+
+        .vip .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .vip-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .vip-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .vip-card.free {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .vip-card-title {
+            font-size: 24px;
+            font-weight: 700;
             margin-bottom: 10px;
         }
-        
-        .app-slogan {
-            font-size: 18px;
-            opacity: 0.9;
+
+        .vip-card-price {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 24px;
         }
-        
-        .features {
+
+        .vip-card-price span {
+            font-size: 16px;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .vip-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .vip-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .vip-features li::before {
+            content: '✓';
+            color: #4ade80;
+            font-weight: 700;
+        }
+
+        .vip-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border-radius: 25px;
+            text-align: center;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .vip-btn.primary {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1e3a8a;
+        }
+
+        .vip-btn.secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .vip-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* 协议区域 */
+        .agreements {
+            background: #f8fafc;
+        }
+
+        .agreement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .agreement-card {
             background: white;
             border-radius: 16px;
             padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            transition: box-shadow 0.3s;
         }
-        
-        .features h2 {
-            font-size: 24px;
+
+        .agreement-card:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .agreement-icon {
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+
+        .agreement-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
+        .agreement-desc {
+            font-size: 14px;
+            color: #64748b;
             margin-bottom: 20px;
-            color: #333;
+            line-height: 1.8;
         }
-        
-        .feature-list {
+
+        .agreement-link {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .agreement-link:hover {
+            text-decoration: underline;
+        }
+
+        /* 联系我们 */
+        .contact {
+            background: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 30px;
+            background: #f8fafc;
+            border-radius: 16px;
+        }
+
+        .contact-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .contact-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .contact-info {
+            font-size: 15px;
+            color: #64748b;
+        }
+
+        .contact-info a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        /* 页脚 */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 60px 20px 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand h3 {
+            font-size: 22px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+        }
+
+        .footer-links h4 {
+            font-size: 16px;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        .footer-links ul {
             list-style: none;
         }
-        
-        .feature-list li {
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
+
+        .footer-links li {
+            margin-bottom: 10px;
         }
-        
-        .feature-list li:last-child {
-            border-bottom: none;
-        }
-        
-        .feature-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-size: 20px;
-            color: white;
-            flex-shrink: 0;
-        }
-        
-        .feature-text {
-            flex: 1;
-        }
-        
-        .feature-title {
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 4px;
-        }
-        
-        .feature-desc {
-            font-size: 14px;
-            color: #666;
-        }
-        
-        .download {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        .download h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        
-        .download-btn {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
-            border-radius: 30px;
-            font-size: 18px;
-            font-weight: bold;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        .footer {
-            text-align: center;
-            color: white;
-            margin-top: 30px;
-            opacity: 0.8;
             font-size: 14px;
+            transition: color 0.3s;
         }
-        
-        @media (max-width: 600px) {
-            .app-name {
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 2;
+        }
+
+        .footer-bottom a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .section-title {
                 font-size: 28px;
             }
-            
-            .features, .download {
-                padding: 20px;
+
+            .hero-stats {
+                gap: 30px;
+            }
+
+            .stat-number {
+                font-size: 28px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="app-icon">👁️</div>
-            <h1 class="app-name">护眼闹钟</h1>
-            <p class="app-slogan">专业的护眼提醒工具，保护您的视力健康</p>
-        </div>
-        
-        <div class="features">
-            <h2>✨ 核心功能</h2>
-            <ul class="feature-list">
-                <li>
-                    <div class="feature-icon">⏰</div>
-                    <div class="feature-text">
-                        <div class="feature-title">智能护眼提醒</div>
-                        <div class="feature-desc">根据使用时长智能提醒休息，科学用眼</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="feature-icon">🎨</div>
-                    <div class="feature-text">
-                        <div class="feature-title">多种场景模式</div>
-                        <div class="feature-desc">默认、阅读、游戏、办公、网课等多种场景</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="feature-icon">📊</div>
-                    <div class="feature-text">
-                        <div class="feature-title">数据统计分析</div>
-                        <div class="feature-desc">记录每日用眼时长，帮助您了解用眼习惯</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="feature-icon">🔔</div>
-                    <div class="feature-text">
-                        <div class="feature-title">自定义提醒间隔</div>
-                        <div class="feature-desc">支持20/30/45分钟等多种间隔，VIP可自定义</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="feature-icon">🎵</div>
-                    <div class="feature-text">
-                        <div class="feature-title">多种提醒音效</div>
-                        <div class="feature-desc">提供多种舒缓的提醒音效，保护您的听力</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="feature-icon">📱</div>
-                    <div class="feature-text">
-                        <div class="feature-title">后台稳定提醒</div>
-                        <div class="feature-desc">APP在后台或手机黑屏时也能可靠触发提醒</div>
-                    </div>
-                </li>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#home" class="logo">
+                <div class="logo-icon">👁️</div>
+                护眼守护
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">功能特性</a></li>
+                <li><a href="#showcase">产品展示</a></li>
+                <li><a href="#scenarios">使用场景</a></li>
+                <li><a href="#vip">VIP会员</a></li>
+                <li><a href="#contact">联系我们</a></li>
+                <li><a href="#download" class="nav-download">立即下载</a></li>
             </ul>
         </div>
-        
-        <div class="download">
-            <h2>📥 立即下载</h2>
-            <p style="margin-bottom: 20px; color: #666;">支持Android系统，免费下载使用</p>
-            <a href="#" class="download-btn">下载护眼闹钟</a>
+    </nav>
+
+    <!-- Hero区域 -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-badge">🌟 专业护眼提醒工具</div>
+            <h1>守护您的<span>心灵之窗</span><br>科学用眼，远离视疲劳</h1>
+            <p class="hero-subtitle">
+                护眼守护是一款专业的护眼提醒工具，通过智能计时、定时提醒、个性定制等功能，<br>
+                帮助您养成科学用眼习惯，有效预防近视，缓解视疲劳，守护您和家人的视力健康。
+            </p>
+            <div class="hero-buttons">
+                <a href="#download" class="btn-primary">📱 立即下载</a>
+                <a href="#features" class="btn-secondary">了解更多</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">10万+</div>
+                    <div class="stat-label">用户信赖</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4.9</div>
+                    <div class="stat-label">用户评分</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">7种</div>
+                    <div class="stat-label">提醒音效</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5种</div>
+                    <div class="stat-label">场景模式</div>
+                </div>
+            </div>
         </div>
-        
-        <div class="footer">
-            <p>© 2026 护眼闹钟 - 保护您的视力健康</p>
-            <p style="margin-top: 10px;">北京悦雅信创科技有限公司</p>
+    </section>
+
+    <!-- 功能特性 -->
+    <section class="section features" id="features">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-tag">核心功能</div>
+                <h2 class="section-title">全方位护眼解决方案</h2>
+                <p class="section-subtitle">智能计时、定时提醒、个性定制、场景模式，为您提供专业的护眼体验</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <h3 class="feature-title">智能亮屏计时</h3>
+                    <p class="feature-desc">自动检测屏幕亮屏状态，精准记录您的用眼时长，黑屏自动暂停，让计时更加科学准确。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3 class="feature-title">定时休息提醒</h3>
+                    <p class="feature-desc">到达设定的用眼时长后，自动弹出全屏提醒，引导您进行眼部放松，有效预防视疲劳。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3 class="feature-title">个性定制设置</h3>
+                    <p class="feature-desc">自由设置提醒间隔、每日目标、提醒音效等，7种专业提醒音效任您选择，打造专属护眼方案。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">多场景模式</h3>
+                    <p class="feature-desc">内置阅读、游戏、办公、网课等5种场景模式，一键切换，针对不同用眼场景提供最优提醒方案。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">用眼统计分析</h3>
+                    <p class="feature-desc">详细记录每日、每周用眼数据，直观展示用眼趋势，帮助您了解自己的用眼习惯，科学调整。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👑</div>
+                    <h3 class="feature-title">VIP专属特权</h3>
+                    <p class="feature-desc">VIP用户享受任意时间设置、全部提醒音效、无广告体验等专属特权，让护眼更加随心自由。</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- 产品展示 -->
+    <section class="section showcase" id="showcase">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-tag">产品展示</div>
+                <h2 class="section-title">简洁美观的界面设计</h2>
+                <p class="section-subtitle">精心设计的用户界面，操作简单直观，让护眼变得轻松愉快</p>
+            </div>
+            <div class="showcase-grid">
+                <div class="showcase-item">
+                    <div class="showcase-image">📱</div>
+                    <div class="showcase-title">智能计时主界面</div>
+                </div>
+                <div class="showcase-item">
+                    <div class="showcase-image">⏰</div>
+                    <div class="showcase-title">护眼提醒悬浮窗</div>
+                </div>
+                <div class="showcase-item">
+                    <div class="showcase-image">⚙️</div>
+                    <div class="showcase-title">个性定制设置</div>
+                </div>
+                <div class="showcase-item">
+                    <div class="showcase-image">🎯</div>
+                    <div class="showcase-title">多场景模式</div>
+                </div>
+                <div class="showcase-item">
+                    <div class="showcase-image">📊</div>
+                    <div class="showcase-title">用眼统计分析</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 使用场景 -->
+    <section class="section scenarios" id="scenarios">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-tag">使用场景</div>
+                <h2 class="section-title">适用于各种用眼场景</h2>
+                <p class="section-subtitle">无论您是学生、上班族还是游戏爱好者，护眼守护都能为您提供专业的护眼服务</p>
+            </div>
+            <div class="scenarios-grid">
+                <div class="scenario-card">
+                    <div class="scenario-icon">📚</div>
+                    <h3 class="scenario-title">学生学习</h3>
+                    <p class="scenario-desc">网课、作业、阅读，长时间用眼，科学提醒休息，预防青少年近视</p>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-icon">💼</div>
+                    <h3 class="scenario-title">办公工作</h3>
+                    <p class="scenario-desc">长时间面对电脑办公，定时提醒放松眼睛，缓解办公视疲劳</p>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-icon">🎮</div>
+                    <h3 class="scenario-title">游戏娱乐</h3>
+                    <p class="scenario-desc">沉迷游戏忘记时间，智能提醒休息，保护视力健康</p>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-icon">📖</div>
+                    <h3 class="scenario-title">阅读看书</h3>
+                    <p class="scenario-desc">电子阅读、纸质书籍，精准计时，养成良好阅读习惯</p>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-icon">🎬</div>
+                    <h3 class="scenario-title">追剧观影</h3>
+                    <p class="scenario-desc">追剧停不下来，定时提醒休息，保护眼睛不受伤害</p>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-icon">👨‍👩‍👧</div>
+                    <h3 class="scenario-title">家庭护眼</h3>
+                    <p class="scenario-desc">全家共用，守护每一位家人的视力健康，科学用眼从现在开始</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIP会员 -->
+    <section class="section vip" id="vip">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-tag" style="background: rgba(251, 191, 36, 0.2); color: #fbbf24;">VIP会员</div>
+                <h2 class="section-title">解锁更多护眼特权</h2>
+                <p class="section-subtitle">升级VIP会员，享受更专业、更自由的护眼体验</p>
+            </div>
+            <div class="vip-grid">
+                <div class="vip-card free">
+                    <h3 class="vip-card-title">免费版</h3>
+                    <div class="vip-card-price">¥0 <span>/永久</span></div>
+                    <ul class="vip-features">
+                        <li>基础亮屏计时功能</li>
+                        <li>定时休息提醒</li>
+                        <li>3种基础提醒音效</li>
+                        <li>基础场景模式</li>
+                        <li>用眼时间限制（8:00-22:00）</li>
+                        <li>基础用眼统计</li>
+                    </ul>
+                    <a href="#download" class="vip-btn secondary">免费使用</a>
+                </div>
+                <div class="vip-card">
+                    <h3 class="vip-card-title">VIP会员</h3>
+                    <div class="vip-card-price">¥19.9 <span>/月</span></div>
+                    <ul class="vip-features">
+                        <li>全部高级功能</li>
+                        <li>任意时间设置（全天24小时）</li>
+                        <li>全部7种专业提醒音效</li>
+                        <li>全部5种场景模式</li>
+                        <li>详细用眼统计分析</li>
+                        <li>无广告纯净体验</li>
+                        <li>优先客服支持</li>
+                        <li>新功能抢先体验</li>
+                    </ul>
+                    <a href="#download" class="vip-btn primary">立即开通</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 协议区域 -->
+    <section class="section agreements" id="agreements">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-tag">法律信息</div>
+                <h2 class="section-title">用户权益保障</h2>
+                <p class="section-subtitle">我们重视每一位用户的权益，提供完整的用户协议和隐私政策</p>
+            </div>
+            <div class="agreement-grid">
+                <div class="agreement-card">
+                    <div class="agreement-icon">📄</div>
+                    <h3 class="agreement-title">用户协议</h3>
+                    <p class="agreement-desc">详细说明用户使用本应用的权利和义务，包括服务条款、使用规范、知识产权等内容，保障用户合法权益。</p>
+                    <a href="user_agreement.html" class="agreement-link">查看用户协议 →</a>
+                </div>
+                <div class="agreement-card">
+                    <div class="agreement-icon">🔒</div>
+                    <h3 class="agreement-title">隐私政策</h3>
+                    <p class="agreement-desc">明确说明我们如何收集、使用、存储和保护您的个人信息，承诺不泄露用户隐私，让您安心使用。</p>
+                    <a href="privacy_policy.html" class="agreement-link">查看隐私政策 →</a>
+                </div>
+                <div class="agreement-card">
+                    <div class="agreement-icon">⚖️</div>
+                    <h3 class="agreement-title">版权声明</h3>
+                    <p class="agreement-desc">本应用及相关内容的知识产权归北京悦雅信创科技有限公司所有，未经授权不得复制、修改或商业使用。</p>
+                    <a href="#contact" class="agreement-link">了解更多 →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section class="section contact" id="contact">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-tag">联系我们</div>
+                <h2 class="section-title">随时为您服务</h2>
+                <p class="section-subtitle">如有任何问题或建议，欢迎随时联系我们，我们将竭诚为您服务</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <h3 class="contact-title">客服邮箱</h3>
+                    <p class="contact-info"><a href="mailto:liquan_liu@126.com">liquan_liu@126.com</a></p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">💬</div>
+                    <h3 class="contact-title">意见反馈</h3>
+                    <p class="contact-info">应用内"我的"-"意见反馈"<br>我们会认真对待每一条建议</p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">🏢</div>
+                    <h3 class="contact-title">公司地址</h3>
+                    <p class="contact-info">北京悦雅信创科技有限公司<br>北京市</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 下载区域 -->
+    <section class="section" id="download" style="background: linear-gradient(135deg, #eff6ff, #dbeafe);">
+        <div class="section-container" style="text-align: center;">
+            <div class="section-header">
+                <div class="section-tag">立即下载</div>
+                <h2 class="section-title">开始您的护眼之旅</h2>
+                <p class="section-subtitle">下载护眼守护，让科学用眼成为习惯，守护您和家人的视力健康</p>
+            </div>
+            <div class="hero-buttons">
+                <a href="#" class="btn-primary">🤖 Android下载</a>
+                <a href="#" class="btn-secondary">📱 iOS下载（敬请期待）</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>👁️ 护眼守护</h3>
+                    <p>专业的护眼提醒工具，帮助您保护视力健康，科学用眼，远离视疲劳。让每一双眼睛都能得到温柔的守护。</p>
+                </div>
+                <div class="footer-links">
+                    <h4>产品功能</h4>
+                    <ul>
+                        <li><a href="#features">智能计时</a></li>
+                        <li><a href="#features">定时提醒</a></li>
+                        <li><a href="#features">个性定制</a></li>
+                        <li><a href="#features">场景模式</a></li>
+                        <li><a href="#vip">VIP会员</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>支持帮助</h4>
+                    <ul>
+                        <li><a href="user_agreement.html">用户协议</a></li>
+                        <li><a href="privacy_policy.html">隐私政策</a></li>
+                        <li><a href="#contact">意见反馈</a></li>
+                        <li><a href="#contact">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>关于我们</h4>
+                    <ul>
+                        <li><a href="#home">应用介绍</a></li>
+                        <li><a href="#showcase">产品展示</a></li>
+                        <li><a href="#scenarios">使用场景</a></li>
+                        <li><a href="#contact">商务合作</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 北京悦雅信创科技有限公司 版权所有 | 护眼守护</p>
+                <p>本应用仅供学习和个人使用，如有任何问题请联系客服邮箱：<a href="mailto:liquan_liu@126.com">liquan_liu@126.com</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.08)';
+            }
+        });
+    </script>
 </body>
 </html>
