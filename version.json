@@ -1,7 +1,7 @@
 {
-  "versionName": "1.1.7",
-  "versionCode": 8,
-  "content": "【修复】\n• 修复手动息屏和自动息屏时护眼时间不清零的问题\n• 确保不论是手动待机还是自动待机，护眼时间都会清零\n\n【优化】\n• 后台服务稳定性提升\n\n【修复】\n• 修复已知问题",
-  "downloadUrl": "https://gh-proxy.com/https://github.com/davidllq/eyecare-update/releases/download/v1.1.7/EyeCare.apk",
+  "versionName": "1.1.8",
+  "versionCode": 9,
+  "content": "【修复】\n• 修复自动息屏时护眼时间不清零的问题\n• 添加实时屏幕状态检查（PowerManager.isInteractive()）\n• 解决自动息屏时ACTION_SCREEN_OFF广播被延迟导致累计时间继续增加的问题\n• 确保不论是手动待机还是自动待机，护眼时间都会立即清零\n\n【优化】\n• 双重保障：onCreate()和onStartCommand()中也添加了屏幕灭时清零逻辑\n\n【修复】\n• 修复已知问题",
+  "downloadUrl": "https://gh-proxy.com/https://github.com/davidllq/eyecare-update/releases/download/v1.1.8/EyeCare.apk",
   "forceUpdate": false
 }
