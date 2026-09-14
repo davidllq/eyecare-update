@@ -1,7 +1,7 @@
 {
-  "versionName": "1.1.6",
-  "versionCode": 7,
-  "content": "【修复】\n• 修复支付宝支付错误6666\"人气太旺啦\"问题\n• 更新支付宝APPID为企业账号配置\n• 优化支付流程稳定性\n\n【优化】\n• 界面视觉效果全面升级\n• 后台提醒稳定性提升\n\n【修复】\n• 修复已知问题",
-  "downloadUrl": "https://gh-proxy.com/https://github.com/davidllq/eyecare-update/releases/download/v1.1.6/EyeCare.apk",
+  "versionName": "1.1.7",
+  "versionCode": 8,
+  "content": "【修复】\n• 修复手动息屏和自动息屏时护眼时间不清零的问题\n• 确保不论是手动待机还是自动待机，护眼时间都会清零\n\n【优化】\n• 后台服务稳定性提升\n\n【修复】\n• 修复已知问题",
+  "downloadUrl": "https://gh-proxy.com/https://github.com/davidllq/eyecare-update/releases/download/v1.1.7/EyeCare.apk",
   "forceUpdate": false
 }
