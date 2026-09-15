@@ -1,7 +1,7 @@
 {
-  "versionName": "1.1.8",
-  "versionCode": 9,
-  "content": "【修复】\n• 修复自动息屏时护眼时间不清零的问题\n• 添加实时屏幕状态检查（PowerManager.isInteractive()）\n• 解决自动息屏时ACTION_SCREEN_OFF广播被延迟导致累计时间继续增加的问题\n• 确保不论是手动待机还是自动待机，护眼时间都会立即清零\n\n【优化】\n• 双重保障：onCreate()和onStartCommand()中也添加了屏幕灭时清零逻辑\n\n【修复】\n• 修复已知问题",
-  "downloadUrl": "https://gh-proxy.com/https://github.com/davidllq/eyecare-update/releases/download/v1.1.8/EyeCare.apk",
+  "versionName": "1.1.9",
+  "versionCode": 10,
+  "content": "【修复】\n• 修复自动息屏时时间继续计时不清零的bug（长间隔场景）\n• 1分钟间隔正常，但更长间隔（如10分钟、20分钟）自动息屏时时间不清零的问题已修复\n\n【优化】\n• 心跳间隔从60秒缩短到15秒，更频繁检测屏幕状态\n• 在心跳检查（checkAndTriggerReminder）中添加实时屏幕状态检查\n• 在AlarmManager触发（ACTION_TRIGGER）中添加实时屏幕状态检查\n• 三重保障：UI更新 + 心跳检查 + AlarmManager触发 都会检测屏幕状态\n• 即使在Doze模式下UI Handler被暂停，心跳和AlarmManager仍能检测到屏幕熄灭并立即清零累计时间\n\n【修复】\n• 修复已知问题",
+  "downloadUrl": "https://gh-proxy.com/https://github.com/davidllq/eyecare-update/releases/download/v1.1.9/EyeCare.apk",
   "forceUpdate": false
 }
