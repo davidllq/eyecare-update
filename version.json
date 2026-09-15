@@ -1,7 +1,7 @@
 {
-  "versionName": "1.1.9",
-  "versionCode": 10,
-  "content": "【修复】\n• 修复自动息屏时时间继续计时不清零的bug（长间隔场景）\n• 1分钟间隔正常，但更长间隔（如10分钟、20分钟）自动息屏时时间不清零的问题已修复\n\n【优化】\n• 心跳间隔从60秒缩短到15秒，更频繁检测屏幕状态\n• 在心跳检查（checkAndTriggerReminder）中添加实时屏幕状态检查\n• 在AlarmManager触发（ACTION_TRIGGER）中添加实时屏幕状态检查\n• 三重保障：UI更新 + 心跳检查 + AlarmManager触发 都会检测屏幕状态\n• 即使在Doze模式下UI Handler被暂停，心跳和AlarmManager仍能检测到屏幕熄灭并立即清零累计时间\n\n【修复】\n• 修复已知问题",
-  "downloadUrl": "https://gh-proxy.com/https://github.com/davidllq/eyecare-update/releases/download/v1.1.9/EyeCare.apk",
-  "forceUpdate": false
+    "content":  "【修复】\n- 修复亮屏恢复时\u0027即将提醒\u0027不消失的bug\n- 检测isReminderShowing为true但悬浮窗不存在时自动重置状态\n- 确保scheduleStartTime为0时重新调度提醒\n- 解决从待机转到亮屏、APP转到前台时计时不触发的问题\n\n【已知】\n- 息屏清零问题已在v1.2.0修复",
+    "versionCode":  12,
+    "versionName":  "1.2.1",
+    "downloadUrl":  "https://gh-proxy.com/https://github.com/davidllq/eyecare-update/releases/download/v1.2.1/EyeCare.apk",
+    "forceUpdate":  false
 }
